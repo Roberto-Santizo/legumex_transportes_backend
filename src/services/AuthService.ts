@@ -3,6 +3,7 @@ import { ConflictError, NotFoundError } from "../infrastructure/errors/errors";
 import { CreateUserPayload, LoginPayload } from "../interfaces/interfaces";
 import { generateJWT } from "../utils/jwt";
 import { hashPassword, checkPassword } from '../utils/auth';
+import { User } from "../entities/entity";
 
 export class AuthService {
     constructor(private authProvider: AuthProvider) { }
@@ -15,8 +16,8 @@ export class AuthService {
         const checkedPasswordFlag = await checkPassword(payload.password, user.password);
         if (!checkedPasswordFlag) throw new ConflictError("Credenciales incorrectas");
 
-        const jwt = generateJWT({ name: user.name, lastName: user.lastName, role: user.role, email: user.email });
-        const data = { name: user.name, lastName: user.lastName, email: user.email, role: user.role, token: jwt }
+        const jwt = generateJWT({ id: user.id, name: user.name, lastName: user.lastName, role: user.role, email: user.email });
+        const data = { id: user.id, name: user.name, lastName: user.lastName, email: user.email, role: user.role, token: jwt }
 
         return data;
     }
@@ -29,5 +30,12 @@ export class AuthService {
         payload.password = auxPassword;
 
         return this.authProvider.createUser(payload);
+    }
+
+    async getUserById(userId: User['id']) {
+        const user = await this.authProvider.getUserById(userId);
+        if (!user) throw new NotFoundError("Usuario no encontrado");
+
+        return user;
     }
 }

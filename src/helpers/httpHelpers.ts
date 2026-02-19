@@ -1,4 +1,4 @@
-import { ConflictError, NotFoundError } from "../infrastructure/errors/errors";
+import { ConflictError, NotAuthorizedError, NotFoundError } from "../infrastructure/errors/errors";
 import { Response } from "express";
 
 export function errorHandler(err: Error, res: Response) {
@@ -12,6 +12,13 @@ export function errorHandler(err: Error, res: Response) {
     if (err instanceof ConflictError) {
         return res.status(409).json({
             statusCode: 409,
+            message: err.message
+        });
+    }
+
+    if (err instanceof NotAuthorizedError) {
+        return res.status(401).json({
+            statusCode: 401,
             message: err.message
         });
     }

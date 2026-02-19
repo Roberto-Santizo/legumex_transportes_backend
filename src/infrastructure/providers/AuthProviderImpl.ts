@@ -9,7 +9,7 @@ export class AuthProviderImpl implements AuthProvider {
 
     constructor() {
         this.repo = datasource.getRepository(User);
-    }   
+    }
 
     async createUser(payload: CreateUserPayload): Promise<User> {
         return this.repo.save(payload);
@@ -17,5 +17,9 @@ export class AuthProviderImpl implements AuthProvider {
 
     async getUserByEmail(payload: LoginPayload): Promise<User> {
         return this.repo.findOneBy({ email: payload.email });
+    }
+
+    async getUserById(userId: User["id"]): Promise<User> {
+        return this.repo.findOneBy({ id: userId });
     }
 }

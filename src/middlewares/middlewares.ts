@@ -1,1 +1,2 @@
-export { BodyValidationErrors } from "./validation";
+export { authenticated } from "./authentication";
+export { returnBodyValidationErrors } from "./validation";

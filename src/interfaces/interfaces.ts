@@ -12,8 +12,14 @@ export interface CreateUserPayload {
 }
 
 export interface JwtPayload {
+    id: number;
     name: string;
     lastName: string;
     email: string;
     role: string;
+}
+
+//VEHICLE BRAND
+export interface CreateOrUpdateVehicleBrandPayload {
+    name: string;
 }
