@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Token } from "./entity";
 
 @Entity()
 export class User {
@@ -19,6 +20,12 @@ export class User {
 
     @Column()
     role: string;
+
+    @Column({ default: false })
+    isVerified: boolean;
+
+    @OneToMany(() => Token, (token) => token.user, { eager: false })
+    tokens: Token[];
 
     @CreateDateColumn()
     createdAt: Date;
