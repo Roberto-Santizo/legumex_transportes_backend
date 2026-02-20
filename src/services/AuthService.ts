@@ -38,4 +38,12 @@ export class AuthService {
 
         return user;
     }
+
+    async checkStatus(user: User) {
+        const jwt = generateJWT({ id: user.id, name: user.name, lastName: user.lastName, role: user.role, email: user.email });
+        const data = { id: user.id, name: user.name, lastName: user.lastName, email: user.email, role: user.role, token: jwt }
+
+        return data;
+
+    }
 }

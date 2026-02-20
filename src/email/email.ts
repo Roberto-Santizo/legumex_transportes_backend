@@ -1,0 +1,1 @@
+export { RegisterTokenTemplate } from "./registerTokenTemplate";

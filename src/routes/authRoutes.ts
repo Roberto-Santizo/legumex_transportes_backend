@@ -1,4 +1,5 @@
 import { AuthController } from "../controllers/controllers";
+import { authenticated } from "../middlewares/middlewares";
 import { body } from "express-validator";
 import { returnBodyValidationErrors } from "../middlewares/validation";
 import { Router } from "express";
@@ -20,6 +21,11 @@ router.post('/register',
     body('role').notEmpty().withMessage('El rol del usuario es requerido'),
     returnBodyValidationErrors,
     AuthController.register
+);
+
+router.get('/check-status',
+    authenticated,
+    AuthController.checkStatus
 );
 
 export default router;
