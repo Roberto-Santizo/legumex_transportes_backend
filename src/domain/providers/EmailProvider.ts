@@ -1,3 +1,5 @@
+import { User } from "../../entities/entity";
+
 export abstract class EmailProvider {
-    abstract sendRegisterTokenEmail(to: string, body: string, token: string): Promise<void>;
+    abstract sendRegisterTokenEmail(user: User, token: string): Promise<void>;
 }

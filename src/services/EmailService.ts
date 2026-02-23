@@ -1,4 +1,5 @@
 import { EmailProvider } from "../domain/providers/providers";
+import { User } from "../entities/entity";
 
 export class EmailService {
     private emailProvider: EmailProvider;
@@ -7,7 +8,7 @@ export class EmailService {
         this.emailProvider = emailProvider;
     }
 
-    async sendRegisterTokenEmail(to: string, body: string, token: string): Promise<void> {
-        await this.emailProvider.sendRegisterTokenEmail(to, body, token);
+    async sendRegisterTokenEmail(user: User, token: string): Promise<void> {
+        await this.emailProvider.sendRegisterTokenEmail(user, token);
     }
 }

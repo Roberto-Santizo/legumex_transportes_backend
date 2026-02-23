@@ -13,6 +13,9 @@ export class Token {
     @JoinColumn({ name: 'user_id' })
     user: User;
 
+    @Column('timestamp')
+    expiresAt: Date;
+
     @CreateDateColumn()
     createdAt: Date;
 }

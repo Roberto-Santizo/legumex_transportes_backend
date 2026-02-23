@@ -1,5 +1,5 @@
-import { AuthProviderImpl, EmailProviderImpl } from "../infrastructure/providers/providers";
-import { AuthService, EmailService } from "../services/services";
+import { AuthProviderImpl } from "../infrastructure/providers/providers";
+import { AuthService } from "../services/services";
 import { CreateUserPayload, LoginPayload } from "../interfaces/interfaces";
 import { errorHandler, responseHandler } from '../helpers/httpHelpers';
 import { Request, Response } from "express";
@@ -21,16 +21,11 @@ export abstract class AuthController {
     static async register(req: Request<{}, {}, CreateUserPayload>, res: Response) {
         try {
             const provider = new AuthProviderImpl();
-            const emailProvider = new EmailProviderImpl();
-
-            const authService = new AuthService(provider);
-            const emailService = new EmailService(emailProvider);
-
-            const user = await authService.register(req.body);
             
-            await emailService.sendRegisterTokenEmail(user.email,'','1234');
+            const authService = new AuthService(provider);
+            const user = await authService.register(req.body);
 
-            responseHandler(res, 201, 'Usuario Creado Correctamente');
+            responseHandler(res, 201, 'Usuario Creado Correctamente', { id: user.id, name: user.name, lastName: user.lastName, email: user.email, role: user.role });
         } catch (error) {
             errorHandler(error, res);
         }

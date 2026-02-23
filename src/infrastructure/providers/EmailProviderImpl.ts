@@ -1,6 +1,7 @@
 import { EmailProvider } from "../../domain/providers/providers";
 import { MailtrapTransport } from "mailtrap";
 import { RegisterTokenTemplate } from "../../email/email";
+import { User } from "../../entities/entity";
 import nodemailer from 'nodemailer';
 import type { Transporter } from 'nodemailer';
 
@@ -18,13 +19,12 @@ export class EmailProviderImpl implements EmailProvider {
         );
     }
 
-    async sendRegisterTokenEmail(to: string, body: string, token: string): Promise<void> {
+    async sendRegisterTokenEmail(user: User, token: string): Promise<void> {
         await this.mailtrapClient.sendMail({
             from: { address: "hello@example.com", name: "Mailtrap Test" },
-            to: [to],
+            to: [user.email],
             subject: "Verificación de Registro",
-            text: "Congrats for sending test email with Mailtrap!",
-            html: RegisterTokenTemplate.build(token),
+            html: RegisterTokenTemplate.build(user, token),
         });
     }
 }

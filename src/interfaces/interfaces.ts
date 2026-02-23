@@ -1,3 +1,5 @@
+import { User } from "../entities/entity";
+
 export interface LoginPayload {
     email: string;
     password: string;
@@ -17,6 +19,13 @@ export interface JwtPayload {
     lastName: string;
     email: string;
     role: string;
+}
+
+//TOKEN
+export interface CreateTokenPayload {
+    token: string;
+    user: User;
+    expiresAt: string;
 }
 
 //VEHICLE BRAND
