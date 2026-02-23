@@ -23,6 +23,12 @@ router.post('/register',
     AuthController.register
 );
 
+router.post('/verify-token/',
+    body('token').notEmpty().withMessage('El token es requerido').isNumeric().withMessage('El token debe de ser un dato númerico'),
+    returnBodyValidationErrors,
+    AuthController.verifyToken
+);
+
 router.get('/check-status',
     authenticated,
     AuthController.checkStatus

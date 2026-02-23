@@ -1,7 +1,7 @@
 import { AuthProvider } from "../../domain/providers/providers";
 import { CreateUserPayload, LoginPayload } from "../../interfaces/interfaces";
 import { datasource } from "../../config/config";
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 import { User } from "../../entities/entity";
 
 export class AuthProviderImpl implements AuthProvider {
@@ -9,6 +9,10 @@ export class AuthProviderImpl implements AuthProvider {
 
     constructor() {
         this.repo = datasource.getRepository(User);
+    }
+
+    verifyUser(id: User["id"]): Promise<UpdateResult> {
+        return this.repo.update({ id: id }, { isVerified: true });
     }
 
     async createUser(payload: CreateUserPayload): Promise<User> {

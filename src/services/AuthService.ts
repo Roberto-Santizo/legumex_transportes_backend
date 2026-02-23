@@ -49,6 +49,10 @@ export class AuthService {
         return user;
     }
 
+    async verifyUser(id: User['id']) {
+        return this.authProvider.verifyUser(id);
+    }
+
     async getUserById(userId: User['id']) {
         const user = await this.authProvider.getUserById(userId);
         if (!user) throw new NotFoundError("Usuario no encontrado");
