@@ -1,0 +1,19 @@
+import { Router } from "express";
+import { authenticated, returnBodyValidationErrors } from "../middlewares/middlewares";
+import { VehicleController } from "../controllers/controllers";
+import { body } from "express-validator";
+
+const router = Router();
+
+router.use(authenticated);
+
+router.post('/',
+    body('name').notEmpty().withMessage('El nombre es requerido'),
+    body('autonomy').notEmpty().withMessage('La autonomia del vehiculo es requerida').isNumeric().withMessage('La autonomia del vehiculo debe de ser un dato númerico'),
+    body('vehicle_brand_id').notEmpty().withMessage('La marca es requerida').isNumeric().withMessage('La marca debe de ser un dato númerico'),
+    body('image').notEmpty().withMessage('La imagén de pérfil es requerida'),
+    returnBodyValidationErrors,
+    VehicleController.store
+);
+
+export default router;

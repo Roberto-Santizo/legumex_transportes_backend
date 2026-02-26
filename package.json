@@ -4,7 +4,8 @@
   "description": "REST API's Legumex Transportes",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/index.ts"
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc"
   },
   "keywords": [
     "Agroindustria",
@@ -24,6 +25,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.999.0",
     "bcrypt": "^6.0.0",
     "colors": "^1.4.0",
     "cors": "^2.8.6",
@@ -34,6 +36,7 @@
     "mailtrap": "^4.4.0",
     "nodemailer": "^7.0.13",
     "pg": "^8.18.0",
-    "typeorm": "^0.3.28"
+    "typeorm": "^0.3.28",
+    "uuid": "^13.0.0"
   }
 }

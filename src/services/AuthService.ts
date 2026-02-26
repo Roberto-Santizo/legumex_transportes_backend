@@ -1,12 +1,12 @@
 import { AuthProvider } from "../domain/providers/providers";
 import { ConflictError, NotFoundError } from "../infrastructure/errors/errors";
 import { CreateUserPayload, LoginPayload } from "../interfaces/interfaces";
+import { Dates } from "../shared/shared";
 import { EmailProviderImpl, TokenProviderImpl } from "../infrastructure/providers/providers";
 import { EmailService, TokenService } from "./services";
 import { generateJWT } from "../utils/jwt";
 import { hashPassword, checkPassword, getFourDigitToken } from '../utils/auth';
 import { User } from "../entities/entity";
-import { Dates } from "../shared/shared";
 
 export class AuthService {
     constructor(private authProvider: AuthProvider) { }
@@ -15,6 +15,8 @@ export class AuthService {
         const user = await this.authProvider.getUserByEmail(payload);
 
         if (!user) throw new NotFoundError("El usuario ingresado no existe");
+
+        if(!user.isVerified) throw new ConflictError('El usuario no esta verificado');
 
         const checkedPasswordFlag = await checkPassword(payload.password, user.password);
         if (!checkedPasswordFlag) throw new ConflictError("Credenciales incorrectas");
