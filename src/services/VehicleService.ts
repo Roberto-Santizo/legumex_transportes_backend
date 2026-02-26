@@ -18,4 +18,8 @@ export class VehicleService {
         const vehicle = await this.service.createVehicle(payload);
         return vehicle;
     }
+
+    async getVehicles(){
+        return await this.service.getVehicles();
+    }
 }

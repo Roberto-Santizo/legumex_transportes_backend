@@ -14,8 +14,11 @@ export class Vehicle {
     
     @Column()
     image: string;
+
+    @Column()
+    year: string;
     
-    @ManyToOne(() => VehicleBrand, (brand) => brand.vehicles, { eager: true, nullable: false })
+    @ManyToOne(() => VehicleBrand, (brand) => brand.vehicles, { eager: false, nullable: false })
     @JoinColumn({ name: 'vehicle_brand_id' })
     brand: VehicleBrand;
 

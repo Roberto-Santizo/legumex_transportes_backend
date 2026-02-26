@@ -1,3 +1,4 @@
+export { VehicleProviderImpl } from "./VehicleProviderImpl";
 export { AuthProviderImpl } from "./AuthProviderImpl";
 export { EmailProviderImpl } from "./EmailProviderImpl";
 export { ImageSaverProviderImpl } from "./ImageServerProviderImpl";

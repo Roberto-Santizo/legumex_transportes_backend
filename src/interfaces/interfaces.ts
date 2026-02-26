@@ -37,6 +37,7 @@ export interface CreateOrUpdateVehicleBrandPayload {
 export interface CreateOrUpdateVehicle {
     name: string;
     image: string;
+    year: string;
     autonomy: number;
     vehicle_brand_id: number;
     brand: VehicleBrand;
