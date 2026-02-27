@@ -19,12 +19,12 @@ export abstract class VehicleController {
         }
     }
 
-    static async index(req: Request, res: Response) {
+    static async index(req: Request<{ id: number }, {}, {}>, res: Response) {
         try {
             const provider = new VehicleProviderImpl();
             const imageService = new ImageSaverProviderImpl();
             const service = new VehicleService(provider, imageService);
-            const vehicles = await service.getVehicles();
+            const vehicles = await service.getVehicles(req.params.id);
 
             responseHandler(res, 201, 'Vehiculo obtenidos exitosamente', vehicles);
         } catch (error) {

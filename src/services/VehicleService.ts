@@ -2,6 +2,7 @@ import { CreateOrUpdateVehicle } from '../interfaces/interfaces';
 import { ImageSaverProvider, VehicleProvider } from "../domain/providers/providers";
 import { VehicleBrandProviderImpl } from "../infrastructure/providers/providers";
 import { VehicleBrandService } from "./VehicleBrandService";
+import { VehicleBrand } from '../entities/entity';
 
 export class VehicleService {
     constructor(private service: VehicleProvider, private imageService: ImageSaverProvider) { }
@@ -19,7 +20,7 @@ export class VehicleService {
         return vehicle;
     }
 
-    async getVehicles(){
-        return await this.service.getVehicles();
+    async getVehicles(id: VehicleBrand['id']){
+        return await this.service.getVehicles(id);
     }
 }

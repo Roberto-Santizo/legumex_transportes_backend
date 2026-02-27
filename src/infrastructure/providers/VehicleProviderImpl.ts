@@ -1,7 +1,7 @@
 import { CreateOrUpdateVehicle } from "../../interfaces/interfaces";
 import { datasource } from "../../config/config";
 import { FindOptionsSelect, Repository } from "typeorm";
-import { Vehicle } from "../../entities/entity";
+import { Vehicle, VehicleBrand } from "../../entities/entity";
 import { VehicleProvider } from "../../domain/providers/providers";
 
 export class VehicleProviderImpl implements VehicleProvider {
@@ -19,8 +19,8 @@ export class VehicleProviderImpl implements VehicleProvider {
     constructor() {
         this.repo = datasource.getRepository(Vehicle);
     }
-    getVehicles(): Promise<Vehicle[]> {
-        return this.repo.find({ select: this.fields });
+    getVehicles(id: VehicleBrand['id']): Promise<Vehicle[]> {
+        return this.repo.find({ select: this.fields, where: { brand: { id: id } } });
     }
 
     createVehicle(payload: CreateOrUpdateVehicle): Promise<Vehicle> {

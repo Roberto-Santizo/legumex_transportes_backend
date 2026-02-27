@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authenticated, returnBodyValidationErrors } from "../middlewares/middlewares";
 import { VehicleController } from "../controllers/controllers";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 const router = Router();
 
@@ -17,7 +17,9 @@ router.post('/',
     VehicleController.store
 );
 
-router.get('/',
+router.get('/:id',
+    param('id').notEmpty().withMessage('El id es requerido').isNumeric().withMessage('El id debe de ser un dato númerico'),
+    returnBodyValidationErrors,
     VehicleController.index
 );
 
