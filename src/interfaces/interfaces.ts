@@ -42,3 +42,8 @@ export interface CreateOrUpdateVehicle {
     vehicle_brand_id: number;
     brand: VehicleBrand;
 }
+
+//CARRIER
+export interface CreateOrUpdateCarrier {
+    name: string;
+}
