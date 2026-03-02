@@ -8,6 +8,9 @@ export class Carrier {
     @Column()
     name: string;
 
+    @Column({ nullable: true })
+    image: string;
+
     @CreateDateColumn()
     createdAt: Date;
 }

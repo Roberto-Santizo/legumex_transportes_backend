@@ -9,6 +9,7 @@ router.use(authenticated);
 
 router.post('/',
     body('name').notEmpty().withMessage('El nombre del transportista es requerido'),
+    body('image').optional(),
     returnBodyValidationErrors,
     CarrierController.store
 );

@@ -1,14 +1,18 @@
-import { CarrierProviderImpl } from "../infrastructure/providers/providers";
+import { CarrierProviderImpl, ImageSaverProviderImpl } from "../infrastructure/providers/providers";
 import { CarrierService } from "../services/CarrierService";
 import { CreateOrUpdateCarrier } from "../interfaces/interfaces";
 import { errorHandler, responseHandler } from "../helpers/httpHelpers";
+import { ImageSaverService } from "../services/services";
 import { Request, Response } from "express";
 
 export abstract class CarrierController {
     static async store(req: Request<{}, {}, CreateOrUpdateCarrier>, res: Response) {
         try {
             const provider = new CarrierProviderImpl();
-            const service = new CarrierService(provider);
+            const ImageProvider = new ImageSaverProviderImpl();
+            const imageService = new ImageSaverService(ImageProvider);
+
+            const service = new CarrierService(provider, imageService);
             await service.createCarrier(req.body);
 
             responseHandler(res, 201, 'Transportista creado correctamente');

@@ -31,12 +31,4 @@ export abstract class VehicleController {
             errorHandler(error, res);
         }
     }
-
-    static async update(req: Request, res: Response) {
-        res.send('update');
-    }
-
-    static async delete(req: Request, res: Response) {
-        res.send('delete');
-    }
 }

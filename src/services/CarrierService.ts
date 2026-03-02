@@ -1,12 +1,17 @@
 import { Carrier } from "../entities/entity";
-import { CarrierProvider } from "../domain/providers/providers";
+import { CarrierProvider, ImageSaverProvider } from "../domain/providers/providers";
 import { CreateOrUpdateCarrier } from "../interfaces/interfaces";
 import { NotFoundError } from "../infrastructure/errors/NotFoundError";
 
 export class CarrierService {
-    constructor(private service: CarrierProvider) { }
+    constructor(private service: CarrierProvider, private imageService?: ImageSaverProvider) { }
 
     async createCarrier(payload: CreateOrUpdateCarrier) {
+        if (payload.image && this.imageService) {
+            const imageUrl = await this.imageService.saveImage({ image: payload.image, path: 'carriers' });
+            payload.image = imageUrl;
+        }
+
         return this.service.createCarrier(payload);
     }
 
