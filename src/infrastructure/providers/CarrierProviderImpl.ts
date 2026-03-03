@@ -13,6 +13,9 @@ export class CarrierProviderImpl implements CarrierProvider {
         this.repo = datasource.getRepository(Carrier);
         this.carrierUserRepo = datasource.getRepository(CarrierUser);
     }
+    getCarrierByCode(code: Carrier["code"]): Promise<Carrier> {
+        return this.repo.findOneBy({ code: code });
+    }
 
     addUserToCarrier(payload: AddUserToCarrierPayload): Promise<CarrierUser> {
         return this.carrierUserRepo.save(payload);

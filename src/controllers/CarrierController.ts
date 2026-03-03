@@ -44,4 +44,16 @@ export abstract class CarrierController {
             errorHandler(error, res);
         }
     }
+
+    static async addDriverToCarrier(req: Request<{}, {}, { code: string }>, res: Response) {
+        try {
+            const provider = new CarrierProviderImpl();
+            const service = new CarrierService(provider);
+            await service.addUserToCarrier(req.user, req.body.code);
+
+            responseHandler(res, 200, 'Piloto agregado correctamente');
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
 }

@@ -3,6 +3,7 @@ import { Carrier, User } from "../entities/entity";
 import { CarrierProvider, ImageSaverProvider } from "../domain/providers/providers";
 import { getSixDigitToken } from "../utils/shared";
 import { NotFoundError } from "../infrastructure/errors/NotFoundError";
+import { ConflictError } from "../infrastructure/errors/ConflictError";
 
 export class CarrierService {
     constructor(private service: CarrierProvider, private imageService?: ImageSaverProvider) { }
@@ -35,5 +36,21 @@ export class CarrierService {
         if (!carrier) throw new NotFoundError('El transportista no existe');
 
         return carrier;
+    }
+
+    async getCarrierByCode(code: Carrier['code']) {
+        const carrier = await this.service.getCarrierByCode(code);
+
+        if (!carrier) throw new NotFoundError('El transportista no existe');
+
+        return carrier;
+    }
+
+    async addUserToCarrier(user: User, code: Carrier['code']) {
+        if(user.role != 'driver') throw new ConflictError('El usuario debe de ser un piloto')
+        
+        const carrier = await this.getCarrierByCode(code);
+        const data: AddUserToCarrierPayload = { user: user, carrier: carrier, function: 'driver' }
+        await this.service.addUserToCarrier(data);
     }
 }

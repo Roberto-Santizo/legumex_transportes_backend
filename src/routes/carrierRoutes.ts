@@ -24,4 +24,10 @@ router.get('/:id',
     CarrierController.get
 );
 
+router.post('/addDriverToCarrier',
+    body('code').notEmpty().withMessage('El código es requerido'),
+    returnBodyValidationErrors,
+    CarrierController.addDriverToCarrier
+);
+
 export default router;
