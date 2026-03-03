@@ -13,7 +13,7 @@ export abstract class CarrierController {
             const imageService = new ImageSaverService(ImageProvider);
 
             const service = new CarrierService(provider, imageService);
-            await service.createCarrier(req.body);
+            await service.createCarrier(req.user, req.body);
 
             responseHandler(res, 201, 'Transportista creado correctamente');
         } catch (error) {

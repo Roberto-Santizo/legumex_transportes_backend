@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Token } from "./entity";
+import { CarrierUser } from "./entity";
 
 @Entity()
 export class User {
@@ -23,6 +24,9 @@ export class User {
 
     @Column({ default: false })
     isVerified: boolean;
+
+    @OneToOne(() => CarrierUser, (carrier) => carrier.user, { eager: true, nullable: true })
+    carrier: CarrierUser;
 
     @OneToMany(() => Token, (token) => token.user, { eager: false })
     tokens: Token[];

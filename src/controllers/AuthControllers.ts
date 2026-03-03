@@ -24,8 +24,9 @@ export abstract class AuthController {
 
             const authService = new AuthService(provider);
             const user = await authService.register(req.body);
+            const { carrier, password, isVerified, ...rest } = user;
 
-            responseHandler(res, 201, 'Hemos enviado instrucciones a tu correo eléctronico', { id: user.id, name: user.name, lastName: user.lastName, email: user.email, role: user.role });
+            responseHandler(res, 201, 'Hemos enviado instrucciones a tu correo eléctronico', rest);
         } catch (error) {
             errorHandler(error, res);
         }

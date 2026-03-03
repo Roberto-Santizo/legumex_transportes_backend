@@ -7,6 +7,7 @@ import { EmailService, TokenService } from "./services";
 import { generateJWT } from "../utils/jwt";
 import { hashPassword, checkPassword, getFourDigitToken } from '../utils/auth';
 import { User } from "../entities/entity";
+import { UserResource } from "../resources/resources";
 
 export class AuthService {
     constructor(private authProvider: AuthProvider) { }
@@ -16,15 +17,14 @@ export class AuthService {
 
         if (!user) throw new NotFoundError("El usuario ingresado no existe");
 
-        if(!user.isVerified) throw new ConflictError('El usuario no esta verificado');
+        if (!user.isVerified) throw new ConflictError('El usuario no esta verificado');
 
         const checkedPasswordFlag = await checkPassword(payload.password, user.password);
         if (!checkedPasswordFlag) throw new ConflictError("Credenciales incorrectas");
 
-        const jwt = generateJWT({ id: user.id, name: user.name, lastName: user.lastName, role: user.role, email: user.email });
-        const data = { id: user.id, name: user.name, lastName: user.lastName, email: user.email, role: user.role, token: jwt }
+        const jwt = generateJWT(user);
 
-        return data;
+        return UserResource.userAuthenticated(user, jwt);
     }
 
     async register(payload: CreateUserPayload) {
@@ -63,10 +63,9 @@ export class AuthService {
     }
 
     async checkStatus(user: User) {
-        const jwt = generateJWT({ id: user.id, name: user.name, lastName: user.lastName, role: user.role, email: user.email });
-        const data = { id: user.id, name: user.name, lastName: user.lastName, email: user.email, role: user.role, token: jwt }
+        const jwt = generateJWT(user);
 
-        return data;
+        return UserResource.userAuthenticated(user, jwt);
 
     }
 }
