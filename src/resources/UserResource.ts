@@ -12,7 +12,8 @@ export class UserResource {
             carrier: user.carrier ? {
                 carrierId: user.carrier.id,
                 function: user.carrier.function,
-                carrierName: user.carrier.carrier.name
+                carrierName: user.carrier.carrier.name,
+                code: user.carrier.carrier.code
             } : null
         }
     }

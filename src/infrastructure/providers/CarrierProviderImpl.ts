@@ -13,6 +13,10 @@ export class CarrierProviderImpl implements CarrierProvider {
         this.repo = datasource.getRepository(Carrier);
         this.carrierUserRepo = datasource.getRepository(CarrierUser);
     }
+
+    getDriversByCarrier(carrier: Carrier): Promise<CarrierUser[]> {
+        return this.carrierUserRepo.find({ relations: ['user'], where: { carrier: { id: carrier.id } } })
+    }
     getCarrierByCode(code: Carrier["code"]): Promise<Carrier> {
         return this.repo.findOneBy({ code: code });
     }

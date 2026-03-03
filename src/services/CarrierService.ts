@@ -47,10 +47,15 @@ export class CarrierService {
     }
 
     async addUserToCarrier(user: User, code: Carrier['code']) {
-        if(user.role != 'driver') throw new ConflictError('El usuario debe de ser un piloto')
-        
+        if (user.role != 'driver') throw new ConflictError('El usuario debe de ser un piloto')
+
         const carrier = await this.getCarrierByCode(code);
         const data: AddUserToCarrierPayload = { user: user, carrier: carrier, function: 'driver' }
         await this.service.addUserToCarrier(data);
+    }
+
+    async getDriversByCarrierCode(code: Carrier['code']) {
+        const carrier = await this.getCarrierByCode(code);
+        return this.service.getDriversByCarrier(carrier);
     }
 }
