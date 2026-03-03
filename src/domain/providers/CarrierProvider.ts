@@ -1,4 +1,4 @@
-import { Carrier, CarrierUser, User } from "../../entities/entity";
+import { Carrier, CarrierUser } from "../../entities/entity";
 import { AddUserToCarrierPayload, CreateOrUpdateCarrier } from "../../interfaces/interfaces";
 
 export abstract class CarrierProvider {

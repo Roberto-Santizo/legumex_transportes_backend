@@ -5,7 +5,8 @@ import { Dates } from "../shared/shared";
 import { EmailProviderImpl, TokenProviderImpl } from "../infrastructure/providers/providers";
 import { EmailService, TokenService } from "./services";
 import { generateJWT } from "../utils/jwt";
-import { hashPassword, checkPassword, getFourDigitToken } from '../utils/auth';
+import { getFourDigitToken } from "../utils/shared";
+import { hashPassword, checkPassword } from '../utils/auth';
 import { User } from "../entities/entity";
 import { UserResource } from "../resources/resources";
 

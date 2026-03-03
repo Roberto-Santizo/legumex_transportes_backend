@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { CarrierUser, User } from "./entity";
+import { CarrierUser } from "./entity";
 
 @Entity()
 export class Carrier {
@@ -11,6 +11,9 @@ export class Carrier {
 
     @Column({ nullable: true })
     image: string;
+
+    @Column({ nullable: false })
+    code: string;
 
     @OneToMany(() => CarrierUser, (user) => user.carrier, { eager: false, nullable: true })
     users: CarrierUser[];

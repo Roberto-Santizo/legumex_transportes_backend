@@ -1,6 +1,7 @@
+import { AddUserToCarrierPayload, CreateOrUpdateCarrier } from "../interfaces/interfaces";
 import { Carrier, User } from "../entities/entity";
 import { CarrierProvider, ImageSaverProvider } from "../domain/providers/providers";
-import { AddUserToCarrierPayload, CreateOrUpdateCarrier } from "../interfaces/interfaces";
+import { getSixDigitToken } from "../utils/shared";
 import { NotFoundError } from "../infrastructure/errors/NotFoundError";
 
 export class CarrierService {
@@ -11,6 +12,8 @@ export class CarrierService {
             const imageUrl = await this.imageService.saveImage({ image: payload.image, path: 'carriers' });
             payload.image = imageUrl;
         }
+
+        payload.code = `${getSixDigitToken()}`;
 
         const carrier = await this.service.createCarrier(payload);
 

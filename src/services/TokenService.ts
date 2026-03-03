@@ -2,7 +2,7 @@ import { CreateTokenPayload } from "../interfaces/interfaces";
 import { Dates } from "../shared/shared";
 import { AuthProviderImpl, EmailProviderImpl } from "../infrastructure/providers/providers";
 import { AuthService, EmailService } from "./services";
-import { getFourDigitToken } from "../utils/auth";
+import { getFourDigitToken } from "../utils/shared";
 import { ConflictError, NotFoundError } from "../infrastructure/errors/errors";
 import { Token } from "../entities/entity";
 import { TokenProvider } from "../domain/providers/providers";

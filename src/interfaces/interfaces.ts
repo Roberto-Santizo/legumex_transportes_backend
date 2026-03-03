@@ -46,6 +46,7 @@ export interface CreateOrUpdateVehicle {
 //CARRIER
 export interface CreateOrUpdateCarrier {
     name: string;
+    code: string;
     image?: string;
 }
 
