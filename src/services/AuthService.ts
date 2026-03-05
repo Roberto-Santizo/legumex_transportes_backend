@@ -1,10 +1,10 @@
-import { AuthProvider } from "../domain/providers/providers";
+import { AuthProvider, ImageSaverProvider } from "../domain/providers/providers";
 import { ConflictError, NotFoundError } from "../infrastructure/errors/errors";
 import { CreateUserPayload, LoginPayload } from "../interfaces/interfaces";
 import { Dates } from "../shared/shared";
 import { EmailProviderImpl, TokenProviderImpl } from "../infrastructure/providers/providers";
 import { EmailService, TokenService } from "./services";
-import { generateJWT } from "../utils/jwt";
+import { generateJWT, generateRefreshJWT } from "../utils/jwt";
 import { getFourDigitToken } from "../utils/shared";
 import { hashPassword, checkPassword } from '../utils/auth';
 import { User } from "../entities/entity";
@@ -24,8 +24,9 @@ export class AuthService {
         if (!checkedPasswordFlag) throw new ConflictError("Credenciales incorrectas");
 
         const jwt = generateJWT(user);
+        const refreshJwt = generateRefreshJWT(user);
 
-        return UserResource.userAuthenticated(user, jwt);
+        return UserResource.userAuthenticated(user, jwt, refreshJwt);
     }
 
     async register(payload: CreateUserPayload) {
@@ -65,8 +66,14 @@ export class AuthService {
 
     async checkStatus(user: User) {
         const jwt = generateJWT(user);
+        const refreshJwt = generateRefreshJWT(user);
 
-        return UserResource.userAuthenticated(user, jwt);
+        return UserResource.userAuthenticated(user, jwt, refreshJwt);
 
+    }
+
+    async updateProfilePicture(user: User, image: string, imageService: ImageSaverProvider) {
+        const imageUrl = await imageService.saveImage({ image: image, path: 'pfp' });
+        return this.authProvider.updateProfilePic(user, imageUrl);
     }
 }

@@ -7,4 +7,5 @@ export abstract class AuthProvider {
     abstract createUser(payload: CreateUserPayload): Promise<User>;
     abstract getUserById(userId: User['id']): Promise<User>;
     abstract verifyUser(id: User['id']): Promise<UpdateResult>;
+    abstract updateProfilePic(user: User, url: string): Promise<UpdateResult>;
 }

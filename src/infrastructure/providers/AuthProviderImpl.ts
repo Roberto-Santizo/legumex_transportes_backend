@@ -11,6 +11,10 @@ export class AuthProviderImpl implements AuthProvider {
         this.repo = datasource.getRepository(User);
     }
 
+    updateProfilePic(user: User, url: string): Promise<UpdateResult> {
+        return this.repo.update({ id: user.id }, { profilePicture: url })
+    }
+
     verifyUser(id: User["id"]): Promise<UpdateResult> {
         return this.repo.update({ id: id }, { isVerified: true });
     }

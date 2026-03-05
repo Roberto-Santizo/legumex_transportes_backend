@@ -34,4 +34,11 @@ router.get('/check-status',
     AuthController.checkStatus
 );
 
+router.post('/updateProfilePicture',
+    authenticated,
+    body('image').notEmpty().withMessage('La imagen es requerida'),
+    returnBodyValidationErrors,
+    AuthController.updateProfilePicture
+);
+
 export default router;

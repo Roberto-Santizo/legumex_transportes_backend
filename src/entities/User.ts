@@ -25,6 +25,9 @@ export class User {
     @Column({ default: false })
     isVerified: boolean;
 
+    @Column({ nullable: true })
+    profilePicture: string;
+
     @OneToOne(() => CarrierUser, (carrier) => carrier.user, { eager: true, nullable: true })
     carrier: CarrierUser;
 

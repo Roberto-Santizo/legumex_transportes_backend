@@ -15,7 +15,7 @@ export class CarrierProviderImpl implements CarrierProvider {
     }
 
     getDriversByCarrier(carrier: Carrier): Promise<CarrierUser[]> {
-        return this.carrierUserRepo.find({ relations: ['user'], where: { carrier: { id: carrier.id } } })
+        return this.carrierUserRepo.find({ relations: ['user'], where: { carrier: { id: carrier.id }, function: 'driver' } })
     }
     getCarrierByCode(code: Carrier["code"]): Promise<Carrier> {
         return this.repo.findOneBy({ code: code });

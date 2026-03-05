@@ -1,4 +1,4 @@
-import { AuthProviderImpl, TokenProviderImpl } from "../infrastructure/providers/providers";
+import { AuthProviderImpl, ImageSaverProviderImpl, TokenProviderImpl } from "../infrastructure/providers/providers";
 import { AuthService, TokenService } from "../services/services";
 import { CreateUserPayload, LoginPayload } from "../interfaces/interfaces";
 import { errorHandler, responseHandler } from '../helpers/httpHelpers';
@@ -53,6 +53,20 @@ export abstract class AuthController {
             const response = await authService.checkStatus(req.user);
 
             responseHandler(res, 200, 'Token válido', response);
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
+    static async updateProfilePicture(req: Request<{}, {}, { image: string }>, res: Response) {
+        try {
+            const provider = new AuthProviderImpl();
+            const authService = new AuthService(provider);
+            const imageService = new ImageSaverProviderImpl();
+
+            await authService.updateProfilePicture(req.user, req.body.image, imageService);
+
+            responseHandler(res, 200, 'Imágen Actualizada Correctamente');
         } catch (error) {
             errorHandler(error, res);
         }

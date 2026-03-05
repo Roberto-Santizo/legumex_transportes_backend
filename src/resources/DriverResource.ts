@@ -5,7 +5,9 @@ export class DriverResource {
         return {
             id: user.user.id,
             name: `${user.user.name}${user.user.lastName}`,
-            email: user.user.email
+            email: user.user.email,
+            status: user.status,
+            profilePicture: user.user.profilePicture
         }
     }
 
