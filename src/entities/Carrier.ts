@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { CarrierUser } from "./entity";
+import { CarrierUser, Trip } from "./entity";
 
 @Entity()
 export class Carrier {
@@ -17,6 +17,9 @@ export class Carrier {
 
     @OneToMany(() => CarrierUser, (user) => user.carrier, { eager: false, nullable: true })
     users: CarrierUser[];
+    
+    @OneToMany(() => Trip, (trip) => trip.carrier, { eager: false, nullable: true })
+    trips: Trip[];
 
     @CreateDateColumn()
     createdAt: Date;

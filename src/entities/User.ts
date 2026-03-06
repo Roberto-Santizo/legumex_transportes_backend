@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Token } from "./entity";
+import { Token, Trip } from "./entity";
 import { CarrierUser } from "./entity";
 
 @Entity()
@@ -33,6 +33,9 @@ export class User {
 
     @OneToMany(() => Token, (token) => token.user, { eager: false })
     tokens: Token[];
+
+    @OneToMany(() => Trip, (trip) => trip.user, { eager: false, nullable: true })
+    trips: Trip[];
 
     @CreateDateColumn()
     createdAt: Date;
