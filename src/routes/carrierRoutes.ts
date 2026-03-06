@@ -36,4 +36,13 @@ router.get('/getDrivers/:code',
     CarrierController.getDriversByCarrierCode
 );
 
+router.post('/addVehicle/:code',
+    param('code').notEmpty().withMessage('El código es requerido'),
+    body('plate').notEmpty().withMessage('La placa es requerida'),
+    body('vehicle_id').notEmpty().withMessage('El vehiculo es requerido'),
+    body('image').optional(),
+    returnBodyValidationErrors,
+    CarrierController.addVehicleToCarrier
+);
+
 export default router;

@@ -19,6 +19,9 @@ export class VehicleProviderImpl implements VehicleProvider {
     constructor() {
         this.repo = datasource.getRepository(Vehicle);
     }
+    getVehicleById(id: Vehicle["id"]): Promise<Vehicle> {
+        return this.repo.findOneBy({ id: id });
+    }
     getVehicles(id: VehicleBrand['id']): Promise<Vehicle[]> {
         return this.repo.find({ select: this.fields, where: { brand: { id: id } } });
     }

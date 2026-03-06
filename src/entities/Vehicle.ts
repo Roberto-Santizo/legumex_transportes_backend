@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { VehicleBrand } from "./entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { CarrierVehicle, VehicleBrand } from "./entity";
 
 @Entity()
 export class Vehicle {
@@ -11,16 +11,19 @@ export class Vehicle {
 
     @Column('float', { default: 0 })
     autonomy: number;
-    
+
     @Column()
     image: string;
 
     @Column()
     year: string;
-    
+
     @ManyToOne(() => VehicleBrand, (brand) => brand.vehicles, { eager: false, nullable: false })
     @JoinColumn({ name: 'vehicle_brand_id' })
     brand: VehicleBrand;
+
+    @OneToMany(() => CarrierVehicle, (vehicle) => vehicle.vehicle, { eager: false, nullable: true })
+    vehicles: CarrierVehicle[];
 
     @CreateDateColumn()
     createdAt: Date;

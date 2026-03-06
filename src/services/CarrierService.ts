@@ -1,9 +1,12 @@
-import { AddUserToCarrierPayload, CreateOrUpdateCarrier } from "../interfaces/interfaces";
-import { Carrier, User } from "../entities/entity";
+import { AddUserToCarrierPayload, AddVehicleToCarrierPayload, CreateOrUpdateCarrier } from "../interfaces/interfaces";
+import { Carrier, CarrierVehicle, User } from "../entities/entity";
 import { CarrierProvider, ImageSaverProvider } from "../domain/providers/providers";
 import { getSixDigitToken } from "../utils/shared";
 import { NotFoundError } from "../infrastructure/errors/NotFoundError";
 import { ConflictError } from "../infrastructure/errors/ConflictError";
+import { VehicleProviderImpl } from "../infrastructure/providers/providers";
+import { VehicleService } from "./services";
+import { red } from "colors";
 
 export class CarrierService {
     constructor(private service: CarrierProvider, private imageService?: ImageSaverProvider) { }
@@ -54,8 +57,42 @@ export class CarrierService {
         await this.service.addUserToCarrier(data);
     }
 
+
+    async getCarrierVehicleByPlate(plate: CarrierVehicle['plate']){
+        const vehicle = await this.service.getCarrierVehicleByPlate(plate);
+
+        if(!vehicle) throw new NotFoundError('Vehiculo no encotrado');
+
+        return vehicle;
+    }
+
+    async addVehicleToCarrier(code: Carrier['code'], payload: AddVehicleToCarrierPayload) {
+        const provider = new VehicleProviderImpl();
+        const service = new VehicleService(provider);
+
+        const vehicleExists = await this.getCarrierVehicleByPlate(payload.plate);
+        if(vehicleExists){
+            throw new ConflictError('El número de placa ya fue agregada');
+        }
+
+        const vehicle = await service.getVehicleById(payload.vehicle_id);
+        payload.vehicle = vehicle;
+
+        const carrier = await this.getCarrierByCode(code);
+        payload.carrier = carrier;
+
+        if (payload.image && this.imageService) {
+            const imageUrl = await this.imageService.saveImage({ image: payload.image, path: 'carrierVehicles' });
+            payload.image = imageUrl;
+        }
+
+        return this.service.addVehicleToCarrier(payload);
+
+    }
+
     async getDriversByCarrierCode(code: Carrier['code']) {
         const carrier = await this.getCarrierByCode(code);
         return this.service.getDriversByCarrier(carrier);
     }
+
 }

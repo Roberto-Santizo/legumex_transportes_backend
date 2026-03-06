@@ -2,10 +2,11 @@ import { CreateOrUpdateVehicle } from '../interfaces/interfaces';
 import { ImageSaverProvider, VehicleProvider } from "../domain/providers/providers";
 import { VehicleBrandProviderImpl } from "../infrastructure/providers/providers";
 import { VehicleBrandService } from "./VehicleBrandService";
-import { VehicleBrand } from '../entities/entity';
+import { Vehicle, VehicleBrand } from '../entities/entity';
+import { NotFoundError } from '../infrastructure/errors/errors';
 
 export class VehicleService {
-    constructor(private service: VehicleProvider, private imageService: ImageSaverProvider) { }
+    constructor(private service: VehicleProvider, private imageService?: ImageSaverProvider) { }
 
     async createVehicle(payload: CreateOrUpdateVehicle) {
         const provider = new VehicleBrandProviderImpl();
@@ -22,5 +23,13 @@ export class VehicleService {
 
     async getVehicles(id: VehicleBrand['id']){
         return await this.service.getVehicles(id);
+    }
+
+    async getVehicleById(id: Vehicle['id']){
+        const vehicle = await this.service.getVehicleById(id);
+        
+        if(!vehicle) throw new NotFoundError('El vehiculo no existe');
+
+        return vehicle;
     }
 }

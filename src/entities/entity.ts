@@ -1,5 +1,6 @@
 export { Carrier } from "./Carrier";
 export { CarrierUser } from "./CarrierUser";
+export { CarrierVehicle } from "./CarrierVehicle";
 export { Token } from "./Token";
 export { Trip } from "./Trip";
 export { User } from "./User";

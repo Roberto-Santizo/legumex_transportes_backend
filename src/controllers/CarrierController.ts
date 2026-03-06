@@ -1,6 +1,6 @@
 import { CarrierProviderImpl, ImageSaverProviderImpl } from "../infrastructure/providers/providers";
 import { CarrierService } from "../services/CarrierService";
-import { CreateOrUpdateCarrier } from "../interfaces/interfaces";
+import { AddVehicleToCarrierPayload, CreateOrUpdateCarrier } from "../interfaces/interfaces";
 import { DriverResource } from "../resources/DriverResource";
 import { errorHandler, responseHandler } from "../helpers/httpHelpers";
 import { ImageSaverService } from "../services/services";
@@ -65,6 +65,20 @@ export abstract class CarrierController {
             const drivers = await service.getDriversByCarrierCode(req.params.code);
 
             responseHandler(res, 200, 'Pilotos obtenidos correctamente', DriverResource.collection(drivers));
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
+    static async addVehicleToCarrier(req: Request<{ code: string }, {}, AddVehicleToCarrierPayload>, res: Response) {
+        try {
+            const provider = new CarrierProviderImpl();
+            const ImageProvider = new ImageSaverProviderImpl();
+            const imageService = new ImageSaverService(ImageProvider);
+            const service = new CarrierService(provider, imageService);
+            await service.addVehicleToCarrier(req.params.code, req.body);
+
+            responseHandler(res, 200, 'Vehiculo Agregado Correctamente');
         } catch (error) {
             errorHandler(error, res);
         }

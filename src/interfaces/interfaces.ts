@@ -1,4 +1,4 @@
-import { Carrier, User, VehicleBrand } from "../entities/entity";
+import { Carrier, User, Vehicle, VehicleBrand } from "../entities/entity";
 
 export interface LoginPayload {
     email: string;
@@ -55,4 +55,13 @@ export interface AddUserToCarrierPayload {
     user: User;
     carrier: Carrier;
     function: string;
+}
+
+//CARRIER VEHICLE
+export interface AddVehicleToCarrierPayload {
+    vehicle_id: Vehicle['id'];
+    carrier: Carrier;
+    vehicle: Vehicle;
+    plate: string;
+    image: string;
 }
