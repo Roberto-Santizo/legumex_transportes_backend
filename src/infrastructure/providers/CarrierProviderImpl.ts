@@ -1,7 +1,7 @@
 import { CarrierProvider } from "../../domain/providers/providers";
 import { AddUserToCarrierPayload, AddVehicleToCarrierPayload, CreateOrUpdateCarrier } from "../../interfaces/interfaces";
 import { datasource } from "../../config/config";
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 import { CarrierUser, Carrier, CarrierVehicle } from "../../entities/entity";
 
 export class CarrierProviderImpl implements CarrierProvider {
@@ -13,6 +13,16 @@ export class CarrierProviderImpl implements CarrierProvider {
         this.repo = datasource.getRepository(Carrier);
         this.carrierUserRepo = datasource.getRepository(CarrierUser);
         this.carrierVehicleRepo = datasource.getRepository(CarrierVehicle);
+    }
+    getCarrierVehicleById(id: CarrierVehicle["id"]): Promise<CarrierVehicle> {
+        return this.carrierVehicleRepo.findOneBy({ id: id });
+    }
+
+    updateCarrierVehicleStatus(vehicle: CarrierVehicle): Promise<UpdateResult> {
+        return this.carrierVehicleRepo.update({ id: vehicle.id }, { status: !vehicle.status });
+    }
+    getCarrierVehiclesByCarrier(carrier: Carrier): Promise<CarrierVehicle[]> {
+        return this.carrierVehicleRepo.find({ where: { carrier: { id: carrier.id } }, order: { id: 'ASC' } })
     }
 
     getCarrierVehicleByPlate(plate: CarrierVehicle["plate"]): Promise<CarrierVehicle> {

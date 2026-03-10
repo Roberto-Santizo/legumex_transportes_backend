@@ -6,7 +6,6 @@ import { NotFoundError } from "../infrastructure/errors/NotFoundError";
 import { ConflictError } from "../infrastructure/errors/ConflictError";
 import { VehicleProviderImpl } from "../infrastructure/providers/providers";
 import { VehicleService } from "./services";
-import { red } from "colors";
 
 export class CarrierService {
     constructor(private service: CarrierProvider, private imageService?: ImageSaverProvider) { }
@@ -58,10 +57,15 @@ export class CarrierService {
     }
 
 
-    async getCarrierVehicleByPlate(plate: CarrierVehicle['plate']){
+    async getCarrierVehicleByPlate(plate: CarrierVehicle['plate']) {
         const vehicle = await this.service.getCarrierVehicleByPlate(plate);
+        return vehicle;
+    }
 
-        if(!vehicle) throw new NotFoundError('Vehiculo no encotrado');
+    async getCarrierVehicleById(id: CarrierVehicle['id']) {
+        const vehicle = await this.service.getCarrierVehicleById(id);
+
+        if (!vehicle) throw new NotFoundError('El vehículo no existe');
 
         return vehicle;
     }
@@ -71,7 +75,7 @@ export class CarrierService {
         const service = new VehicleService(provider);
 
         const vehicleExists = await this.getCarrierVehicleByPlate(payload.plate);
-        if(vehicleExists){
+        if (vehicleExists) {
             throw new ConflictError('El número de placa ya fue agregada');
         }
 
@@ -93,6 +97,16 @@ export class CarrierService {
     async getDriversByCarrierCode(code: Carrier['code']) {
         const carrier = await this.getCarrierByCode(code);
         return this.service.getDriversByCarrier(carrier);
+    }
+
+    async getCarrierVehiclesByCarrier(code: Carrier['code']) {
+        const carrier = await this.getCarrierByCode(code);
+        return this.service.getCarrierVehiclesByCarrier(carrier);
+    }
+
+    async updateCarrierVehicleStatus(id: CarrierVehicle['id']) {
+        const vehicle = await this.getCarrierVehicleById(id);
+        return this.service.updateCarrierVehicleStatus(vehicle);
     }
 
 }

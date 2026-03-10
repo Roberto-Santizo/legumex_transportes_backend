@@ -17,10 +17,15 @@ router.post('/',
     VehicleController.store
 );
 
-router.get('/:id',
-    param('id').notEmpty().withMessage('El id es requerido').isNumeric().withMessage('El id debe de ser un dato númerico'),
-    returnBodyValidationErrors,
+router.get('/',
     VehicleController.index
 );
+
+router.get('/getVehiclesByBrand/:id',
+    param('id').notEmpty().withMessage('El id es requerido').isNumeric().withMessage('El id debe de ser un dato númerico'),
+    returnBodyValidationErrors,
+    VehicleController.getVehiclesByBrandId
+);
+
 
 export default router;

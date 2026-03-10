@@ -21,8 +21,8 @@ export class VehicleService {
         return vehicle;
     }
 
-    async getVehicles(id: VehicleBrand['id']){
-        return await this.service.getVehicles(id);
+    async getVehiclesByBrandId(id: VehicleBrand['id']){
+        return await this.service.getVehiclesByBrandId(id);
     }
 
     async getVehicleById(id: Vehicle['id']){
@@ -31,5 +31,9 @@ export class VehicleService {
         if(!vehicle) throw new NotFoundError('El vehiculo no existe');
 
         return vehicle;
+    }
+
+    async getVehicles(){
+        return this.service.getVehicles();
     }
 }

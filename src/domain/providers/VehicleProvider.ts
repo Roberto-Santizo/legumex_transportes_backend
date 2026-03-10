@@ -3,6 +3,7 @@ import { CreateOrUpdateVehicle } from "../../interfaces/interfaces";
 
 export abstract class VehicleProvider {
     abstract createVehicle(payload: CreateOrUpdateVehicle): Promise<Vehicle>;
-    abstract getVehicles(id: VehicleBrand['id']): Promise<Vehicle[]>;
+    abstract getVehiclesByBrandId(id: VehicleBrand['id']): Promise<Vehicle[]>;
+    abstract getVehicles(): Promise<Vehicle[]>;
     abstract getVehicleById(id: Vehicle['id']): Promise<Vehicle>;
 }

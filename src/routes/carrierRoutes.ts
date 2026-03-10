@@ -40,9 +40,24 @@ router.post('/addVehicle/:code',
     param('code').notEmpty().withMessage('El código es requerido'),
     body('plate').notEmpty().withMessage('La placa es requerida'),
     body('vehicle_id').notEmpty().withMessage('El vehiculo es requerido'),
+    body('total_kms').notEmpty().withMessage('El kilometraje es requerido').isNumeric().withMessage('El kilometraje debe de ser un dato númerico'),
+    body('max_weight').notEmpty().withMessage('El kilometraje es requerido').isNumeric().withMessage('El kilometraje debe de ser un dato númerico'),
+    body('fuel_type').notEmpty().withMessage('El tipo de combustible es requerido'),
     body('image').optional(),
     returnBodyValidationErrors,
     CarrierController.addVehicleToCarrier
+);
+
+router.get('/getVehicles/:code',
+    param('code').notEmpty().withMessage('El código es requerido'),
+    returnBodyValidationErrors,
+    CarrierController.getVehiclesByCarrier
+);
+
+router.post('/updateVehicleStatus/:id',
+    param('id').notEmpty().withMessage('El código es requerido'),
+    returnBodyValidationErrors,
+    CarrierController.updateCarrierVehicleStatus
 );
 
 export default router;

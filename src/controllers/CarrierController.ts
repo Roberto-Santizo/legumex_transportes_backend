@@ -5,6 +5,8 @@ import { DriverResource } from "../resources/DriverResource";
 import { errorHandler, responseHandler } from "../helpers/httpHelpers";
 import { ImageSaverService } from "../services/services";
 import { Request, Response } from "express";
+import { CarrierVehicleResource } from "../resources/CarrierVehicleResource";
+import { param } from 'express-validator';
 
 export abstract class CarrierController {
     static async store(req: Request<{}, {}, CreateOrUpdateCarrier>, res: Response) {
@@ -79,6 +81,30 @@ export abstract class CarrierController {
             await service.addVehicleToCarrier(req.params.code, req.body);
 
             responseHandler(res, 200, 'Vehiculo Agregado Correctamente');
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
+    static async getVehiclesByCarrier(req: Request<{ code: string }>, res: Response) {
+        try {
+            const provider = new CarrierProviderImpl();
+            const service = new CarrierService(provider);
+            const vehicles = await service.getCarrierVehiclesByCarrier(req.params.code);
+
+            responseHandler(res, 200, 'Vehículos obtenidos correctamente', CarrierVehicleResource.collection(vehicles));
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
+    static async updateCarrierVehicleStatus(req: Request<{ id: number }>, res: Response) {
+        try {
+            const provider = new CarrierProviderImpl();
+            const service = new CarrierService(provider);
+            await service.updateCarrierVehicleStatus(req.params.id);
+
+            responseHandler(res, 200, 'Vehículo actualizado correctamente');
         } catch (error) {
             errorHandler(error, res);
         }

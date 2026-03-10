@@ -19,12 +19,23 @@ export abstract class VehicleController {
         }
     }
 
-    static async index(req: Request<{ id: number }, {}, {}>, res: Response) {
+    static async getVehiclesByBrandId(req: Request<{ id: number }, {}, {}>, res: Response) {
         try {
             const provider = new VehicleProviderImpl();
-            const imageService = new ImageSaverProviderImpl();
-            const service = new VehicleService(provider, imageService);
-            const vehicles = await service.getVehicles(req.params.id);
+            const service = new VehicleService(provider);
+            const vehicles = await service.getVehiclesByBrandId(req.params.id);
+
+            responseHandler(res, 201, 'Vehiculo obtenidos exitosamente', vehicles);
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
+    static async index(req: Request, res: Response) {
+        try {
+            const provider = new VehicleProviderImpl();
+            const service = new VehicleService(provider);
+            const vehicles = await service.getVehicles();
 
             responseHandler(res, 201, 'Vehiculo obtenidos exitosamente', vehicles);
         } catch (error) {
