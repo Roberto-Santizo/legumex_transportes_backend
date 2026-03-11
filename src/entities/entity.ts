@@ -6,3 +6,4 @@ export { Trip } from "./Trip";
 export { User } from "./User";
 export { Vehicle } from "./Vehicle";
 export { VehicleBrand } from "./VehicleBrand";
+export { Zone } from "./Zone";

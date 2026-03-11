@@ -5,3 +5,4 @@ export { ImageSaverProvider } from "./ImageSaverProvider";
 export { TokenProvider } from "./TokenProvider";
 export { VehicleBrandProvider } from "./VehicleBrandProvider";
 export { VehicleProvider } from "./VehicleProvider";
+export { ZoneProvider } from "./ZoneProvider";

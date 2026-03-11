@@ -1,4 +1,4 @@
-import { authRoutes, carrierRoutes, vehicleBrandRoutes, vehiclesRoutes } from "./routes/routes";
+import { authRoutes, carrierRoutes, vehicleBrandRoutes, vehiclesRoutes, zoneRoutes } from "./routes/routes";
 import { corsConfig } from "./config/config";
 import cors from "cors";
 import express from "express";
@@ -15,5 +15,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/vehicle-brands', vehicleBrandRoutes);
 app.use('/api/vehicles', vehiclesRoutes);
 app.use('/api/carriers', carrierRoutes);
+app.use('/api/zones', zoneRoutes);
 
 export default app;

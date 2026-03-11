@@ -65,3 +65,13 @@ export interface AddVehicleToCarrierPayload {
     plate: string;
     image: string;
 }
+
+//ZONE
+export type Coordinate = [number, number];
+
+
+export interface CreateOrUpdateZone {
+    name: string;
+    area: Object;
+    coordinates: Coordinate[];
+}
