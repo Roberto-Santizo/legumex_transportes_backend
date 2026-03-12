@@ -9,3 +9,4 @@ export { Vehicle } from "./Vehicle";
 export { VehicleBrand } from "./VehicleBrand";
 export { Zone } from "./Zone";
 export { ZoneFuelPrice } from "./ZoneFuelPrice";
+export { ZoneTripPrice } from "./ZoneTripPrice";

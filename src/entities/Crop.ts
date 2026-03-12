@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ZoneTripPrice } from "./entity";
 
 @Entity()
 export class Crop {
@@ -7,6 +8,9 @@ export class Crop {
 
     @Column()
     name: string;
+
+    @OneToMany(() => ZoneTripPrice, (tripPrice) => tripPrice.crop)
+    zonePrices: ZoneTripPrice[];
 
     @CreateDateColumn()
     createdAt: Date;
