@@ -75,3 +75,8 @@ export interface CreateOrUpdateZone {
     area: Object;
     coordinates: Coordinate[];
 }
+
+//CROP
+export interface CreateOrUpdateCrop {
+    name: string;
+}

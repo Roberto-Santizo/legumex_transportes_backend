@@ -1,4 +1,6 @@
+
 export { AuthService } from "./AuthService";
+export { CropService } from "./CropService";
 export { EmailService } from "./EmailService";
 export { ImageSaverService } from "./ImageSaverService";
 export { TokenService } from "./TokenService";
