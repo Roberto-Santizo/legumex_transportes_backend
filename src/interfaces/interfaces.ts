@@ -1,4 +1,4 @@
-import { Carrier, User, Vehicle, VehicleBrand } from "../entities/entity";
+import { Carrier, User, Vehicle, VehicleBrand, Zone } from "../entities/entity";
 
 export interface LoginPayload {
     email: string;
@@ -74,6 +74,11 @@ export interface CreateOrUpdateZone {
     name: string;
     area: Object;
     coordinates: Coordinate[];
+}
+
+export interface AddPriceRangeToZone {
+    zone: Zone;
+    fuel_range: number;
 }
 
 //CROP

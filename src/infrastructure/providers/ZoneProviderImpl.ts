@@ -1,14 +1,27 @@
-import { CreateOrUpdateZone } from '../../interfaces/interfaces';
+import { AddPriceRangeToZone, CreateOrUpdateZone } from '../../interfaces/interfaces';
 import { datasource } from '../../config/config';
 import { Repository, DeleteResult } from 'typeorm';
-import { Zone } from '../../entities/Zone';
-import { ZoneProvider } from '../../domain/providers/ZoneProvider';
+import { ZoneFuelPrice, Zone } from '../../entities/entity';
+import { ZoneProvider } from '../../domain/providers/providers';
 
 export class ZoneProviderImpl implements ZoneProvider {
     private service: Repository<Zone>;
+    private fuelService: Repository<ZoneFuelPrice>
 
     constructor() {
         this.service = datasource.getRepository(Zone);
+        this.fuelService = datasource.getRepository(ZoneFuelPrice);
+    }
+    getPriceRangeById(id: ZoneFuelPrice['id']): Promise<ZoneFuelPrice> {
+        return this.fuelService.findOneBy({ id });
+    }
+
+    removePriceRage(id: ZoneFuelPrice['id']): Promise<DeleteResult> {
+        return this.fuelService.delete({ id });
+    }
+
+    addPriceRange(payload: AddPriceRangeToZone): Promise<ZoneFuelPrice> {
+        return this.fuelService.save(payload);
     }
 
     deleteZoneById(id: Zone['id']): Promise<DeleteResult> {

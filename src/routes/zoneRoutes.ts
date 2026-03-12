@@ -31,4 +31,17 @@ router.delete('/:id',
     ZoneController.delete
 );
 
+router.post('/addPriceRange/:id',
+    param('id').notEmpty().withMessage('El ID es requerido').isNumeric().withMessage('El ID debe de ser un dato númerico'),
+    body('fuel_range').notEmpty().withMessage('El rango de precio es requerido').isNumeric().withMessage('El rango de precio debe de ser un dato númerico'),
+    returnBodyValidationErrors,
+    ZoneController.addPriceRange
+);
+
+router.delete('/removePriceRange/:rangeId',
+    param('rangeId').notEmpty().withMessage('El ID es requerido').isNumeric().withMessage('El ID debe de ser un dato númerico'),
+    returnBodyValidationErrors,
+    ZoneController.removePriceRange
+);
+
 export default router;

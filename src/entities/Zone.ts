@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from "typeorm";
+import { ZoneFuelPrice } from "./entity";
 
 @Entity()
 export class Zone {
@@ -15,6 +16,9 @@ export class Zone {
     srid: 4326
   })
   area: Object;
+
+  @OneToMany(() => ZoneFuelPrice, (price) => price.zone)
+  prices: ZoneFuelPrice[];
 
   @CreateDateColumn()
   createdAt: Date;

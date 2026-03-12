@@ -1,6 +1,7 @@
-import { CreateOrUpdateZone } from "../interfaces/interfaces";
+import { AddPriceRangeToZone, CreateOrUpdateZone } from "../interfaces/interfaces";
 import { errorHandler, responseHandler } from "../helpers/httpHelpers";
 import { Request, Response } from "express";
+import { Zone, ZoneFuelPrice } from "../entities/entity";
 import { ZoneProviderImpl } from "../infrastructure/providers/ZoneProviderImpl";
 import { ZoneResource } from '../resources/resources';
 import { ZoneService } from "../services/ZoneService";
@@ -53,6 +54,30 @@ export abstract class ZoneController {
             await service.deleteZoneById(req.params.id);
 
             responseHandler(res, 201, 'Zona Eliminada Correctamente');
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
+    static async addPriceRange(req: Request<{ id: Zone['id'] }, {}, AddPriceRangeToZone>, res: Response) {
+        try {
+            const provider = new ZoneProviderImpl();
+            const service = new ZoneService(provider);
+            await service.addPriceRangeToZone(req.params.id, req.body);
+
+            responseHandler(res, 201, 'Rango agregado correctamente');
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
+    static async removePriceRange(req: Request<{ rangeId: ZoneFuelPrice['id'] }, {}, AddPriceRangeToZone>, res: Response) {
+        try {
+            const provider = new ZoneProviderImpl();
+            const service = new ZoneService(provider);
+            await service.removePriceRange(req.params.rangeId);
+
+            responseHandler(res, 201, 'Rango eliminado correctamente');
         } catch (error) {
             errorHandler(error, res);
         }
