@@ -12,6 +12,10 @@ export class ZoneProviderImpl implements ZoneProvider {
         this.service = datasource.getRepository(Zone);
         this.fuelService = datasource.getRepository(ZoneFuelPrice);
     }
+
+    getFuelPricesByZoneId(zone: Zone): Promise<ZoneFuelPrice[]> {
+        return this.fuelService.find({ where: { zone: { id: zone.id } } });
+    }
     getPriceRangeById(id: ZoneFuelPrice['id']): Promise<ZoneFuelPrice> {
         return this.fuelService.findOneBy({ id });
     }

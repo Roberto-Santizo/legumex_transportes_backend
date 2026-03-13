@@ -10,7 +10,10 @@ export class CropProviderImpl implements CropProvider {
     constructor() {
         this.service = appDatasource.getRepository(Crop);
     }
-    
+    getCropById(id: Crop["id"]): Promise<Crop> {
+        return this.service.findOneBy({ id: id });
+    }
+
     getCrops(): Promise<Crop[]> {
         return this.service.find();
     }

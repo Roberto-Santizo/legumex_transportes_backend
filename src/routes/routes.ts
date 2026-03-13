@@ -4,3 +4,4 @@ export { default as vehiclesRoutes } from "./vehiclesRoutes";
 export { default as carrierRoutes } from "./carrierRoutes";
 export { default as zoneRoutes } from "./zoneRoutes";
 export { default as cropRoutes } from "./cropRoutes";
+export { default as zoneTripPriceRoute } from "./zoneTripPriceRoutes";

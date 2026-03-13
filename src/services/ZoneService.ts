@@ -42,6 +42,11 @@ export class ZoneService {
         return range;
     }
 
+    async getFuelPricesByZoneId(id: Zone['id']){
+        const zone = await this.getZoneById(id);
+        return this.service.getFuelPricesByZoneId(zone);
+    }
+
     async removePriceRange(id: ZoneFuelPrice['id']) {
         await this.getPrinceRangeById(id);
         return this.service.removePriceRage(id);

@@ -17,7 +17,7 @@ export class Zone {
   })
   area: Object;
 
-  @OneToMany(() => ZoneFuelPrice, (price) => price.zone)
+  @OneToMany(() => ZoneFuelPrice, (price) => price.zone, {eager: true})
   prices: ZoneFuelPrice[];
 
   @CreateDateColumn()

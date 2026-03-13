@@ -9,5 +9,6 @@ export abstract class ZoneProvider {
     abstract deleteZoneById(id: Zone['id']): Promise<DeleteResult>;
     abstract addPriceRange(payload: AddPriceRangeToZone): Promise<ZoneFuelPrice>;
     abstract getPriceRangeById(id: ZoneFuelPrice['id']): Promise<ZoneFuelPrice>;
+    abstract getFuelPricesByZoneId(zone: Zone): Promise<ZoneFuelPrice[]>;
     abstract removePriceRage(id: ZoneFuelPrice['id']): Promise<DeleteResult>;
 }

@@ -1,4 +1,5 @@
 import { CreateOrUpdateCrop } from "../interfaces/interfaces";
+import { Crop } from "../entities/entity";
 import { CropProviderImpl } from "../infrastructure/providers/CropProviderImpl";
 import { CropService } from "../services/CropService";
 import { errorHandler, responseHandler } from "../helpers/httpHelpers";

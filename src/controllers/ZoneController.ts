@@ -71,6 +71,18 @@ export abstract class ZoneController {
         }
     }
 
+    static async getFuelPricesByZoneId(req: Request<{ id: Zone['id'] }>, res: Response) {
+        try {
+            const provider = new ZoneProviderImpl();
+            const service = new ZoneService(provider);
+            const prices = await service.getFuelPricesByZoneId(req.params.id);
+
+            responseHandler(res, 201, 'Precios obtenidos correctamente', prices);
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
     static async removePriceRange(req: Request<{ rangeId: ZoneFuelPrice['id'] }, {}, AddPriceRangeToZone>, res: Response) {
         try {
             const provider = new ZoneProviderImpl();

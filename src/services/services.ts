@@ -1,4 +1,3 @@
-
 export { AuthService } from "./AuthService";
 export { CropService } from "./CropService";
 export { EmailService } from "./EmailService";
@@ -7,3 +6,4 @@ export { TokenService } from "./TokenService";
 export { VehicleBrandService } from "./VehicleBrandService";
 export { VehicleService } from "./VehicleService";
 export { ZoneService } from "./ZoneService";
+export { ZoneTripPriceService } from "./ZoneTripPriceService";

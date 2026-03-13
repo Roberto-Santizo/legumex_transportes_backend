@@ -1,4 +1,4 @@
-import { Carrier, User, Vehicle, VehicleBrand, Zone } from "../entities/entity";
+import { Carrier, Crop, User, Vehicle, VehicleBrand, Zone, ZoneFuelPrice } from "../entities/entity";
 
 export interface LoginPayload {
     email: string;
@@ -79,6 +79,15 @@ export interface CreateOrUpdateZone {
 export interface AddPriceRangeToZone {
     zone: Zone;
     fuel_range: number;
+}
+
+export interface CreateOrUpdateZoneTripPrice {
+    crop_id: Crop['id'];
+    fuel_price_id: ZoneFuelPrice['id'];
+    price_per_lb: number;
+    start_date: string;
+    crop: Crop;
+    fuelPrice: ZoneFuelPrice;
 }
 
 //CROP

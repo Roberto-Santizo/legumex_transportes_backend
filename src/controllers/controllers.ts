@@ -4,3 +4,4 @@ export { CropController } from "./CropController";
 export { VehicleBrandController } from "./VehicleBrandController";
 export { VehicleController } from "./VehicleController";
 export { ZoneController } from "./ZoneController";
+export { ZoneTripPriceController } from "./ZoneTripPriceController";

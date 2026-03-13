@@ -5,7 +5,8 @@ export class ZoneResource {
         return {
             id: zone.id,
             name: zone.name,
-            coordinates: zone.area["coordinates"][0]
+            coordinates: zone.area["coordinates"][0],
+            prices: zone.prices
         }
     }
 
