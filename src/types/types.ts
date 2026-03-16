@@ -1,4 +1,5 @@
 import z from "zod";
-import { PlaceSchema } from "../schemas/placesSchemas";
+import { PlacePredictionSchema, PlaceSchema } from "../schemas/placesSchemas";
 
+export type PlacePrediction = z.infer<typeof PlacePredictionSchema>;
 export type Place = z.infer<typeof PlaceSchema>;

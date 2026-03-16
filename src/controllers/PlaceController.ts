@@ -18,4 +18,17 @@ export abstract class PlaceController {
             errorHandler(error, res);
         }
     }
+
+    static async getPlaceById(req: Request<{ placeId: string }, {}, {}>, res: Response) {
+        try {
+            const { placeId } = req.params;
+            const provider = new PlaceProviderImpl(apiClient);
+            const service = new PlaceService(provider);
+            const data = await service.getPlaceById(placeId);
+
+            responseHandler(res, 200, 'Lugares obtenidos correctamente', PlaceResource.toJsonDetails(data, placeId));
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
 }
