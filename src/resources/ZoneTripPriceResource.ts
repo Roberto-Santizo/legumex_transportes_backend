@@ -6,7 +6,9 @@ export class ZoneTripPriceResource {
             id: price.id,
             product: price.crop.name,
             fuel_price: price.fuelPrice.fuel_range,
-            price_per_lb: price.price_per_lb
+            price_per_lb: price.price_per_lb,
+            start_date: price.start_date,
+            status: price.status
         }
     }
 

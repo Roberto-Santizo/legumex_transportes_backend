@@ -3,6 +3,7 @@ export { CarrierProvider } from "./CarrierProvider";
 export { CropProvider } from "./CropProvider";
 export { EmailProvider } from "./EmailProvider";
 export { ImageSaverProvider } from "./ImageSaverProvider";
+export { PlaceProvider } from "./PlaceProvider";
 export { TokenProvider } from "./TokenProvider";
 export { VehicleBrandProvider } from "./VehicleBrandProvider";
 export { VehicleProvider } from "./VehicleProvider";
