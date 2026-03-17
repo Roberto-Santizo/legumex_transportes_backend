@@ -5,6 +5,7 @@ export { EmailProvider } from "./EmailProvider";
 export { ImageSaverProvider } from "./ImageSaverProvider";
 export { PlaceProvider } from "./PlaceProvider";
 export { TokenProvider } from "./TokenProvider";
+export { TraficProvider } from './TraficProvider';
 export { VehicleBrandProvider } from "./VehicleBrandProvider";
 export { VehicleProvider } from "./VehicleProvider";
 export { ZoneProvider } from "./ZoneProvider";

@@ -94,3 +94,12 @@ export interface CreateOrUpdateZoneTripPrice {
 export interface CreateOrUpdateCrop {
     name: string;
 }
+
+//TRAFIC 
+export interface GetEstimatedTimeInTraficPayload {
+    destination_lat: number;
+    destination_lng: number;
+    start_lat: number;
+    start_lng: number;
+    departure_time: number;
+}

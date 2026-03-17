@@ -12,26 +12,14 @@ export class Trip {
     @Column('float')
     destination_lng: number;
 
-    @Column('float', { nullable: true })
+    @Column('float')
     start_lat: number;
 
-    @Column('float', { nullable: true })
+    @Column('float')
     start_lng: number;
-
-    @Column('float')
-    total_kms: number;
-
-    @Column('float', { nullable: true })
-    travel_kms: number;
-
-    @Column('float')
-    total_lbs: number;
-
-    @Column('timestamp', { nullable: true })
-    start_date: Date;
-
-    @Column('timestamp', { nullable: true })
-    end_date: Date;
+    
+    @Column({ type: 'timestamp' })
+    departure_date: Date
 
     @ManyToOne(() => Carrier, (carrier) => carrier.trips, { eager: true, nullable: false })
     @JoinColumn({ name: 'carrier_id' })

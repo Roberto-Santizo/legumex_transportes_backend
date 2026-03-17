@@ -5,6 +5,7 @@ export { EmailProviderImpl } from "./EmailProviderImpl";
 export { ImageSaverProviderImpl } from "./ImageServerProviderImpl";
 export { PlaceProviderImpl } from "./PlaceProviderImpl";
 export { TokenProviderImpl } from "./TokenProviderImpl";
+export { TraficProviderImpl } from "./TraficProviderImpl";
 export { VehicleBrandProviderImpl } from "./VehicleBrandProviderImpl";
 export { VehicleProviderImpl } from "./VehicleProviderImpl";
 export { ZoneProviderImpl } from "./ZoneProviderImpl";
