@@ -8,7 +8,7 @@ export class PlaceProviderImpl implements PlaceProvider {
     constructor(private client: AxiosInstance) { }
 
     async getPlaceById(id: PlacePrediction["place_id"]): Promise<Place> {
-        const { data } = await this.client.get(`/details/json?place_id=${id}&key=${process.env.GOOGLE_API_KEY}`);
+        const { data } = await this.client.get(`/place/details/json?place_id=${id}&key=${process.env.GOOGLE_API_KEY}`);
         const response = PlaceSchema.safeParse(data);
         if (response.success) {
             return response.data;
@@ -18,7 +18,7 @@ export class PlaceProviderImpl implements PlaceProvider {
     }
 
     async getPlaces(place: string): Promise<PlacePrediction[]> {
-        const { data } = await this.client.get(`/autocomplete/json?input=${place}&key=${process.env.GOOGLE_API_KEY}`);
+        const { data } = await this.client.get(`/place/autocomplete/json?input=${place}&key=${process.env.GOOGLE_API_KEY}`);
         const response = GooglePlacesReponseSchema.safeParse(data);
         if (response.success) {
             return response.data.predictions;

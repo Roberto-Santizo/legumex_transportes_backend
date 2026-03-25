@@ -1,4 +1,4 @@
-import { authRoutes, carrierRoutes, cropRoutes, placeRoutes, tripRoutes, vehicleBrandRoutes, vehiclesRoutes, zoneRoutes, zoneTripPriceRoute } from "./routes/routes";
+import { authRoutes, carrierRoutes, cropRoutes, fuelRoutes, placeRoutes, tripRoutes, vehicleBrandRoutes, vehiclesRoutes, zoneRoutes, zoneTripPriceRoute } from "./routes/routes";
 import { corsConfig } from "./config/config";
 import cors from "cors";
 import express from "express";
@@ -20,5 +20,6 @@ app.use('/api/zones-trip-prices', zoneTripPriceRoute);
 app.use('/api/crops', cropRoutes);
 app.use('/api/places', placeRoutes);
 app.use('/api/trips', tripRoutes);
+app.use('/api/fuel', fuelRoutes);
 
 export default app;
