@@ -13,7 +13,6 @@ router.post('/estimatedTraficTime',
     body('start_lng').notEmpty().withMessage('Longitud de inicio es requerido'),
     body('destination_lat').notEmpty().withMessage('Latitud final es requerida'),
     body('destination_lng').notEmpty().withMessage('Longitud final es requerida'),
-    body('departure_time').notEmpty().withMessage('La hora de salida es requerida'),
     returnBodyValidationErrors,
     TripController.getEstimatedTrafic
 );

@@ -9,7 +9,7 @@ export class TraficProviderImpl implements TraficProvider {
     constructor(private client: AxiosInstance) { }
 
     async getEstimatedTimeInTrafic(payload: GetEstimatedTimeInTraficPayload): Promise<TraficData> {
-        const url = `/directions/json?origin=${payload.start_lat},${payload.start_lng}&destination=${payload.destination_lat},${payload.destination_lng}&departure_time=${payload.departure_time}&key=${process.env.GOOGLE_API_KEY}`
+        const url = `/directions/json?origin=${payload.start_lat},${payload.start_lng}&destination=${payload.destination_lat},${payload.destination_lng}&key=${process.env.GOOGLE_API_KEY}`
         const { data } = await this.client.get(url);
         const response = GoogleTraficResponseSchema.safeParse(data);
         if (response.success) {

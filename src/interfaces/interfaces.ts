@@ -101,5 +101,4 @@ export interface GetEstimatedTimeInTraficPayload {
     destination_lng: number;
     start_lat: number;
     start_lng: number;
-    departure_time: number;
 }

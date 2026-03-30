@@ -10,7 +10,6 @@ export const GoogleTraficResponseSchema = z.object({
         legs: z.array(z.object({
             distance: TraficDataResponseSchema,
             duration: TraficDataResponseSchema,
-            duration_in_traffic: TraficDataResponseSchema
         }))
     }))
 });
