@@ -1,3 +1,4 @@
+export { FuelPriceProvider } from "./FuelPriceProvider";
 export { AIProvider } from "./AIProvider";
 export { AuthProvider } from "./AuthProvider";
 export { CarrierProvider } from "./CarrierProvider";

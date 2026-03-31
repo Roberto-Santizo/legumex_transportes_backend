@@ -3,6 +3,7 @@ export { CarrierUser } from "./CarrierUser";
 export { CarrierVehicle } from "./CarrierVehicle";
 export { Crop } from "./Crop";
 export { Fuel } from "./Fuel";
+export { FuelPrice } from "./FuelPrice";
 export { Token } from "./Token";
 export { Trip } from "./Trip";
 export { User } from "./User";

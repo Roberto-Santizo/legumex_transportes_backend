@@ -9,6 +9,11 @@ export class FuelProviderImpl implements FuelProvider {
     constructor() {
         this.repo = appDatasource.getRepository(Fuel);
     }
+
+    getFuelById(id: Fuel['id']): Promise<Fuel> {
+        return this.repo.findOne({ where: { id }, relations: ['prices'] });
+    }
+
     getFuelTypes(): Promise<Fuel[]> {
         return this.repo.find();
     }
