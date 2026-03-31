@@ -1,19 +1,26 @@
 import { Request, Response } from "express";
 import { errorHandler, responseHandler } from "../helpers/httpHelpers";
-import { GeminiProviderImpl } from "../infrastructure/providers/GeminiProviderImpl";
 import { FuelProviderImpl } from "../infrastructure/providers/FuelProviderImpl";
 import { FuelService } from "../services/FuelService";
 
 export abstract class FuelController {
-    static async getCurrentPrices(req: Request, res: Response) {
+    static async store(req: Request<{}, { name: string }>, res: Response) {
         try {
-            const ia = new GeminiProviderImpl();
-            const provider = new FuelProviderImpl(ia);
+            const provider = new FuelProviderImpl();
             const service = new FuelService(provider);
+            await service.createFuel(req.body.name);
+            responseHandler(res, 200, 'Tipo de gasolina creado correctamente');
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
 
-            await service.getCurrentFuelPrices();
-
-            responseHandler(res, 200, 'Precios de gasolina obtenidos correctamente');
+    static async index(req: Request, res: Response) {
+        try {
+            const provider = new FuelProviderImpl();
+            const service = new FuelService(provider);
+            const fuelTypes = await service.getFuelTypes();
+            responseHandler(res, 200, 'Tipos de gasolina obtenidos correctamente', fuelTypes);
         } catch (error) {
             errorHandler(error, res);
         }

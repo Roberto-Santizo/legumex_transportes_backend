@@ -1,10 +1,19 @@
-import { AIProvider } from '../../domain/providers/AIProvider';
-import { FuelProvider } from '../../domain/providers/FuelProvider';
+import { Repository } from 'typeorm';
+import { FuelProvider } from '../../domain/providers/providers';
+import { Fuel } from '../../entities/entity';
+import appDatasource from '../../config/datasource';
 
 export class FuelProviderImpl implements FuelProvider {
-    constructor(private ia: AIProvider) { }
+    private repo: Repository<Fuel>;
 
-    getCurrentFuelPrices(): Promise<void> {
-        return this.ia.getCurrentFuelPrices();
+    constructor() {
+        this.repo = appDatasource.getRepository(Fuel);
+    }
+    getFuelTypes(): Promise<Fuel[]> {
+        return this.repo.find();
+    }
+
+    createFuel(name: string): Promise<Fuel> {
+        return this.repo.save({ name });
     }
 }

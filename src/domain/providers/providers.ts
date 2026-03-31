@@ -1,9 +1,9 @@
+export { AIProvider } from "./AIProvider";
 export { AuthProvider } from "./AuthProvider";
 export { CarrierProvider } from "./CarrierProvider";
 export { CropProvider } from "./CropProvider";
 export { EmailProvider } from "./EmailProvider";
 export { FuelProvider } from "./FuelProvider";
-export { AIProvider } from "./AIProvider";
 export { ImageSaverProvider } from "./ImageSaverProvider";
 export { PlaceProvider } from "./PlaceProvider";
 export { TokenProvider } from "./TokenProvider";

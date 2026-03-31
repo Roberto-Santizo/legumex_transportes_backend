@@ -1,3 +1,6 @@
+import { Fuel } from "../../entities/entity";
+
 export abstract class FuelProvider {
-    abstract getCurrentFuelPrices(): Promise<void>;
+    abstract createFuel(name: string): Promise<Fuel>;
+    abstract getFuelTypes(): Promise<Fuel[]>;
 }
