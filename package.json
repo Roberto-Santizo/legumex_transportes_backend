@@ -31,6 +31,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.999.0",
     "@google/genai": "^1.46.0",
+    "@googlemaps/polyline-codec": "^1.0.28",
     "axios": "^1.13.6",
     "bcrypt": "^6.0.0",
     "colors": "^1.4.0",

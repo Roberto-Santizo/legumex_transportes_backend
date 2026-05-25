@@ -3,13 +3,12 @@ import { PlaceProviderImpl } from "../infrastructure/providers/providers";
 import { PlaceResource } from "../resources/resources";
 import { PlaceService } from "../services/services";
 import { Request, Response } from "express";
-import apiClient from "../config/axios";
 
 export abstract class PlaceController {
     static async index(req: Request<{}, {}, {}>, res: Response) {
         try {
             const { place } = req.query;
-            const provider = new PlaceProviderImpl(apiClient);
+            const provider = new PlaceProviderImpl();
             const service = new PlaceService(provider);
             const data = await service.getPlaces(`${place}`);
 
@@ -22,11 +21,23 @@ export abstract class PlaceController {
     static async getPlaceById(req: Request<{ placeId: string }, {}, {}>, res: Response) {
         try {
             const { placeId } = req.params;
-            const provider = new PlaceProviderImpl(apiClient);
+            const provider = new PlaceProviderImpl();
             const service = new PlaceService(provider);
             const data = await service.getPlaceById(placeId);
 
             responseHandler(res, 200, 'Lugares obtenidos correctamente', PlaceResource.toJsonDetails(data, placeId));
+        } catch (error) {
+            errorHandler(error, res);
+        }
+    }
+
+
+    static async getRoute(req: Request, res: Response) {
+        try {
+            const provider = new PlaceProviderImpl();
+            const service = new PlaceService(provider);
+            const data = await service.getRoute(req.body);
+            responseHandler(res, 200, 'Ruta obtenida correctamente', PlaceResource.formatRoute(data));
         } catch (error) {
             errorHandler(error, res);
         }

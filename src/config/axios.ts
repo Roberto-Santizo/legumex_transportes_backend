@@ -1,12 +1,9 @@
-import axios, { AxiosHeaders } from 'axios';
+import axios from 'axios';
 
-const apiClient = axios.create({
-    baseURL: process.env.GOOGLE_MAPS_URL,
+const mapBoxApiClient = axios.create({
+    baseURL: process.env.MAPBOX_URL,
 });
 
-apiClient.interceptors.request.use(config => {
-    return config;
-});
 
-export default apiClient;
+export default mapBoxApiClient;
 

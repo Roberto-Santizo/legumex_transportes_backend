@@ -1,12 +1,13 @@
 import { Carrier, User } from "../entities/entity";
 import { GoogleTraficResponseSchema } from "../schemas/traficSchemas";
-import { PlacePredictionSchema, PlaceSchema } from "../schemas/placesSchemas";
+import { PlacePredictionSchema, PlaceSchema, TrafficResponseSchema } from "../schemas/placesSchemas";
 import z from "zod";
 
 export type PlacePrediction = z.infer<typeof PlacePredictionSchema>;
 export type Place = z.infer<typeof PlaceSchema>;
 
 export type TraficData = z.infer<typeof GoogleTraficResponseSchema>
+export type TrafficResponse = z.infer<typeof TrafficResponseSchema>
 
 export type GetEstimatedTripPricePayload = {
     destination_lat: number;
@@ -24,4 +25,11 @@ export type CreateTripPayload = GetEstimatedTripPricePayload & {
     amount_lbs: number;
     carrier: Carrier;
     user: User;
+}
+
+export type TrafficPayload = {
+    start_lat: number;
+    start_lng: number;
+    end_lat: number;
+    end_lng: number;
 }

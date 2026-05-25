@@ -1,5 +1,5 @@
 import { PlaceProvider } from "../domain/providers/PlaceProvider";
-import { PlacePrediction } from "../types/types";
+import { PlacePrediction, TrafficPayload } from "../types/types";
 
 export class PlaceService {
     constructor(private provider: PlaceProvider) { }
@@ -10,5 +10,9 @@ export class PlaceService {
 
     getPlaceById(id: PlacePrediction['place_id']) {
         return this.provider.getPlaceById(id);
+    }
+
+    getRoute(payload: TrafficPayload){
+        return this.provider.getRoute(payload);
     }
 }
