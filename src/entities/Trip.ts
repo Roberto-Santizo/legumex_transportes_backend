@@ -17,18 +17,39 @@ export class Trip {
 
     @Column('float')
     start_lng: number;
-    
-    @Column({ type: 'timestamp' })
-    departure_date: Date
 
-    @ManyToOne(() => Carrier, (carrier) => carrier.trips, { eager: true, nullable: false })
+    @Column('int', { default: 1 })
+    status: number;
+
+    @Column('float')
+    total_pounds: number;
+
+    @Column('timestamp')
+    operation_date: Date
+
+    @Column('timestamp')
+    createdAt: Date;
+
+    @Column('timestamp', { nullable: true })
+    start_date: Date
+
+    @Column('timestamp', { nullable: true })
+    end_date: Date
+
+    @Column('float')
+    estimated_time: number;
+
+    @Column('float')
+    estimated_distance: number;
+
+    @Column('float')
+    amount_lbs: number;
+
+    @ManyToOne(() => Carrier, (carrier) => carrier.trips, { nullable: false })
     @JoinColumn({ name: 'carrier_id' })
-    carrier: Carrier[];
+    carrier: Carrier;
 
-    @ManyToOne(() => User, (user) => user.trips, { eager: true, nullable: true })
+    @ManyToOne(() => User, (user) => user.trips, { nullable: true })
     @JoinColumn({ name: 'user_id' })
     user: User;
-
-    @CreateDateColumn()
-    createdAt: Date;
 }

@@ -5,6 +5,7 @@ export { ImageSaverService } from "./ImageSaverService";
 export { PlaceService } from "./PlaceService";
 export { TokenService } from "./TokenService";
 export { TraficService } from "./TraficService";
+export { TripService } from "./TripService";
 export { VehicleBrandService } from "./VehicleBrandService";
 export { VehicleService } from "./VehicleService";
 export { ZoneService } from "./ZoneService";

@@ -4,7 +4,6 @@ import { FuelController } from "../controllers/FuelController";
 import { isAdmin } from "../middlewares/roles";
 import { returnBodyValidationErrors } from "../middlewares/validation";
 import { Router } from "express";
-import { Fuel } from "../entities/Fuel";
 
 const router = Router();
 

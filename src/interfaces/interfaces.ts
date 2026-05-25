@@ -1,4 +1,5 @@
 import { Carrier, Crop, User, Vehicle, VehicleBrand, Zone, ZoneFuelPrice } from "../entities/entity";
+import { TraficData } from "../types/types";
 
 export interface LoginPayload {
     email: string;
@@ -81,6 +82,8 @@ export interface AddPriceRangeToZone {
     fuel_range: number;
 }
 
+//TRIPS
+
 export interface CreateOrUpdateZoneTripPrice {
     crop_id: Crop['id'];
     fuel_price_id: ZoneFuelPrice['id'];
@@ -90,13 +93,28 @@ export interface CreateOrUpdateZoneTripPrice {
     fuelPrice: ZoneFuelPrice;
 }
 
+export interface EstimatedTripCost {
+    trafic: {
+        distance: {
+            text: string; 
+            value: number;
+        }
+        duration: {
+            text: string;
+            value: number;
+        }
+    };
+    amount: number;
+    pricePerLb: number;
+}
+
 //CROP
 export interface CreateOrUpdateCrop {
     name: string;
 }
 
 //TRAFIC 
-export interface GetEstimatedTimeInTraficPayload {
+export interface RoutePayload {
     destination_lat: number;
     destination_lng: number;
     start_lat: number;

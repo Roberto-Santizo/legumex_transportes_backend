@@ -1,10 +1,10 @@
 import { TraficProvider } from "../domain/providers/providers";
-import { GetEstimatedTimeInTraficPayload } from "../interfaces/interfaces";
+import { RoutePayload } from "../interfaces/interfaces";
 
 export class TraficService {
     constructor(private service: TraficProvider) { }
 
-    getEstimatedTimeInTrafic(payload: GetEstimatedTimeInTraficPayload) {
+    getEstimatedTimeInTrafic(payload: RoutePayload) {
         return this.service.getEstimatedTimeInTrafic(payload);
     }
 }

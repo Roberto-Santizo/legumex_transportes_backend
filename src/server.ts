@@ -1,7 +1,8 @@
 import { authRoutes, carrierRoutes, cropRoutes, fuelRoutes, placeRoutes, tripRoutes, vehicleBrandRoutes, vehiclesRoutes, zoneRoutes, zoneTripPriceRoute } from "./routes/routes";
-import { corsConfig } from "./config/config";
+import { corsConfig, swaggerSpec } from "./config/config";
 import cors from "cors";
 import express from "express";
+import swaggerUI from 'swagger-ui-express';
 
 const app = express();
 
@@ -21,5 +22,8 @@ app.use('/api/crops', cropRoutes);
 app.use('/api/places', placeRoutes);
 app.use('/api/trips', tripRoutes);
 app.use('/api/fuel', fuelRoutes);
+
+//DOCUMENTATION
+app.use('/documentation', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 export default app;
