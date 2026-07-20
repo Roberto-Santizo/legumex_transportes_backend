@@ -12,8 +12,8 @@ export type TrafficResponse = z.infer<typeof TrafficResponseSchema>
 export type GetEstimatedTripPricePayload = {
     destination_lat: number;
     destination_lng: number;
-    start_lat: number;
-    start_lng: number;
+    origin_lat: number;
+    origin_lng: number;
     product_id: number;
     total_pounds: number;
     operation_date: string;
@@ -23,6 +23,7 @@ export type CreateTripPayload = GetEstimatedTripPricePayload & {
     estimated_time: number;
     estimated_distance: number;
     amount_lbs: number;
+    polyline: string;
     carrier: Carrier;
     user: User;
 }

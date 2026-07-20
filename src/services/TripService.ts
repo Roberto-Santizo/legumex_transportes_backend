@@ -11,10 +11,10 @@ export class TripService {
     constructor(private provider: TripProvider, private cropService?: CropService, private traficService?: TraficService) { }
 
     async getZoneByPosition(lng: number, lat: number): Promise<Zone> {
-        const query = `ST_Intersects(zone.area,ST_SetSRID(ST_Point(${lng}, ${lat}), 4326)::geography)`;
+        const query = `ST_Intersects(zone.area, ST_SetSRID(ST_Point(${lng}, ${lat}), 4326))`;
         const zone = await this.provider.getZoneByPosition(query);
         if (!zone) {
-            throw new NotFoundError('No se encontró una zona para la posición especificada');
+            throw new NotFoundError('No se encontró una zona para la posición especificada, asegurate de que el destino se encuentre dentro de una zona válida');
         }
         return zone;
     }
@@ -38,14 +38,11 @@ export class TripService {
 
     async getEstimatedTripCost(data: GetEstimatedTripPricePayload): Promise<EstimatedTripCost> {
         const product = await this.cropService.getCropById(data.product_id);
-        const zone = await this.getZoneByPosition(data.start_lng, data.start_lat);
-        const zoneFuelPrice = await this.getZoneFuelPrice(zone.id, 40);
+        const zone = await this.getZoneByPosition(data.origin_lng, data.origin_lat);
+        const zoneFuelPrice = await this.getZoneFuelPrice(zone.id, 30);
         const pricePerLb = await this.getPricePerLb(product.id, zoneFuelPrice.id);
 
-        const trafic = await this.traficService.getEstimatedTimeInTrafic({ start_lat: data.start_lat, start_lng: data.start_lng, destination_lat: data.destination_lat, destination_lng: data.destination_lng });
-
         const response: EstimatedTripCost = {
-            trafic: TraficResource.toJsonDetails(trafic),
             pricePerLb: pricePerLb.price_per_lb,
             amount: pricePerLb.price_per_lb * data.total_pounds
         }

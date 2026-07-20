@@ -6,6 +6,7 @@ export class UserResource {
             id: user.id,
             name: user.name,
             lastName: user.lastName,
+            fullName: `${user.name} ${user.lastName}`,
             email: user.email,
             role: user.role,
             profilePicture: user.profilePicture,

@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Carrier, User } from "./entity";
 
 @Entity()
@@ -13,10 +13,10 @@ export class Trip {
     destination_lng: number;
 
     @Column('float')
-    start_lat: number;
+    origin_lat: number;
 
     @Column('float')
-    start_lng: number;
+    origin_lng: number;
 
     @Column('int', { default: 1 })
     status: number;
@@ -27,7 +27,7 @@ export class Trip {
     @Column('timestamp')
     operation_date: Date
 
-    @Column('timestamp')
+    @CreateDateColumn()
     createdAt: Date;
 
     @Column('timestamp', { nullable: true })
@@ -44,6 +44,9 @@ export class Trip {
 
     @Column('float')
     amount_lbs: number;
+
+    @Column()
+    polyline: string;
 
     @ManyToOne(() => Carrier, (carrier) => carrier.trips, { nullable: false })
     @JoinColumn({ name: 'carrier_id' })

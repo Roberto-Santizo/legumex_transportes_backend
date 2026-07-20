@@ -94,16 +94,6 @@ export interface CreateOrUpdateZoneTripPrice {
 }
 
 export interface EstimatedTripCost {
-    trafic: {
-        distance: {
-            text: string; 
-            value: number;
-        }
-        duration: {
-            text: string;
-            value: number;
-        }
-    };
     amount: number;
     pricePerLb: number;
 }

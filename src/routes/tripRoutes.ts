@@ -9,10 +9,11 @@ const router = Router();
 router.use(authenticated);
 
 router.post('/',
-    body('start_lat').notEmpty().withMessage('Latitud de inicio es requerido'),
-    body('start_lng').notEmpty().withMessage('Longitud de inicio es requerido'),
+    body('origin_lat').notEmpty().withMessage('Latitud de inicio es requerido'),
+    body('origin_lng').notEmpty().withMessage('Longitud de inicio es requerido'),
     body('destination_lat').notEmpty().withMessage('Latitud final es requerida'),
     body('destination_lng').notEmpty().withMessage('Longitud final es requerida'),
+    body('polyline').notEmpty().withMessage('La polyline es requerida'),
     body('product_id').notEmpty().withMessage('El producto es requerido').isNumeric().withMessage('El producto debe de ser un dato númerico'),
     body('total_pounds').notEmpty().withMessage('El total de libras es requerido').isNumeric().withMessage('El total de libras debe de ser un dato númerico'),
     body('operation_date').notEmpty().withMessage('La fecha de operación es requerida'),
@@ -24,8 +25,8 @@ router.post('/',
 );
 
 router.post('/estimatedTripPrice',
-    body('start_lat').notEmpty().withMessage('Latitud de inicio es requerido'),
-    body('start_lng').notEmpty().withMessage('Longitud de inicio es requerido'),
+    body('origin_lat').notEmpty().withMessage('Latitud de inicio es requerido'),
+    body('origin_lng').notEmpty().withMessage('Longitud de inicio es requerido'),
     body('destination_lat').notEmpty().withMessage('Latitud final es requerida'),
     body('destination_lng').notEmpty().withMessage('Longitud final es requerida'),
     body('product_id').notEmpty().withMessage('El producto es requerido').isNumeric().withMessage('El producto debe de ser un dato númerico'),

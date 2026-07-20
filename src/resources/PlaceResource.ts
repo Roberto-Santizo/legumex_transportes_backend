@@ -26,7 +26,8 @@ export class PlaceResource {
         return {
             distance: route.distance,
             duration: route.duration,
-            points: decode(route.geometry)
+            polyline: route.geometry,
+            points: decode(route.geometry, 6)
         }
     }
 
