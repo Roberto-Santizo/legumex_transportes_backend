@@ -24,8 +24,8 @@ export class PlaceResource {
         const route = data.routes[0];
 
         return {
-            distance: route.distance,
-            duration: route.duration,
+            distance: Math.ceil(route.distance/1000),
+            duration: Math.ceil(route.duration/60),
             polyline: route.geometry,
             points: decode(route.geometry, 6)
         }
